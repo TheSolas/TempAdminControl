@@ -27,41 +27,91 @@ namespace TempAdminControl
         }
         public static bool ResolveUserInput()
         {
-            bool loggedIn = true;
-            var nullableInput = Console.ReadLine();
-            if (String.IsNullOrWhiteSpace(nullableInput))
+            try
             {
-                Console.WriteLine(USEHELP);
+
+                bool loggedIn = true;
+                var nullableInput = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(nullableInput))
+                {
+                    Console.WriteLine(USEHELP);
+                    return true;
+                }
+                string input = (string)nullableInput;
+                var command = input.Split(" ");
+                switch (command[0])
+                {
+                    case "help":
+                    case "h":
+                        ShowCommandList();
+                        break;
+                    case "logout":
+                        loggedIn = false;
+                        break;
+                    case "delete":
+                        ResolveDelete(command);
+                        break;
+                    case "change":
+                    case "modify":
+                        ResolveModify(command);
+                        break;
+                    case "log":
+                        Commands.ShowLog();
+                        break;
+                    case "user":
+                        ResolveShowUser(command);
+                        break;
+                    case "create":
+                        ResolveCreateUser(command);
+                        break;
+                    default:
+                        Console.WriteLine(USEHELP);
+                        break;
+                }
+
+                return loggedIn;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 return true;
             }
-            string input = (string)nullableInput;
-            var command = input.Split(" ");
-            switch (command[0])
+        }
+
+        private static void ResolveCreateUser(string[] command)
+        {
+            if (command.Length != 6) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
+            CreateUser(command[2], command[3], command[4], command[5]);
+        }
+
+        private static void ResolveShowUser(string[] command)
+        {
+            switch (command.Length)
             {
-                case "help":
-                case "h":
-                    ShowCommandList();
+                case 1:
+                    ShowUser();
                     break;
-                case "logout":
-                    loggedIn = false;
-                    break;
-                case "delete":
-                    ResolveDelete(command);
-                    break;
-                case "change":
-                case "modify":
-                    ResolveModify(command);
+                case 2:
+                    ShowUser(command[1]);
                     break;
                 default:
-                    Console.WriteLine(USEHELP);
-                    break;
+                    throw new Exception("Ungültige Anzahl an Parametern!");
             }
-            return loggedIn;
         }
 
         private static void ResolveModify(string[] command)
         {
-            throw new NotImplementedException();
+            if (command.Length != 5) throw new Exception("Befehl entspricht nicht der Vorgabe! " + USEHELP);
+            switch (command[1])
+            {
+                case "sensor":
+                case "user":
+                    Modify(command[1], command[2], command[3], command[4]);
+                    break;
+                default:
+                    Console.WriteLine($"{command[1]} ist kein Typ der geändert werden kann. Änderbare Typen sind sensor|user");
+                    break;
+            }
         }
     }
 }
