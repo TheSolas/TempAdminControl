@@ -1,0 +1,15 @@
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\TempAdminControl.exe
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\TempAdminControl.deps.json
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\TempAdminControl.runtimeconfig.json
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\TempAdminControl.dll
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\TempAdminControl.pdb
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.csproj.AssemblyReference.cache
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.AssemblyInfoInputs.cache
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.AssemblyInfo.cs
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.csproj.CoreCompileInputs.cache
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.dll
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\refint\TempAdminControl.dll
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.pdb
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.genruntimeconfig.cache
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\ref\TempAdminControl.dll
