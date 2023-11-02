@@ -25,7 +25,7 @@ namespace TempAdminControl
                     break;
             }
         }
-        public static bool ResolveUserInput()
+        public static async Task<bool> ResolveUserInput()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace TempAdminControl
                         ResolveShowUser(command);
                         break;
                     case "create":
-                        ResolveCreateUser(command);
+                        await ResolveCreateUser(command);
                         break;
                     default:
                         Console.WriteLine(USEHELP);
@@ -78,10 +78,10 @@ namespace TempAdminControl
             }
         }
 
-        private static void ResolveCreateUser(string[] command)
+        private static async Task ResolveCreateUser(string[] command)
         {
-            if (command.Length != 6) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
-            CreateUser(command[2], command[3], command[4], command[5]);
+            if (command.Length != 7) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
+            await CreateUser(command[2], command[3], command[4], command[5], command[6]);
         }
 
         private static void ResolveShowUser(string[] command)

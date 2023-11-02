@@ -5,17 +5,17 @@ namespace TempAdminControl;
 class Program
 {
     private static bool loggedIn;
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         Console.WriteLine("Willkommen im AdminTool für die TempControlWebanwendung!");
         do
         {
-            loggedIn = Login();
+            loggedIn = await Login();
         } while (!loggedIn);
 
         do
         {
-            loggedIn = ResolveUserInput();
+            loggedIn = await ResolveUserInput();
         } while (loggedIn);
 
         Console.WriteLine("Hello, World!");
@@ -27,18 +27,27 @@ class Program
 
 
 
-    
 
-    private static bool Login()
+
+    private static async Task<bool> Login()
     {
         Console.WriteLine("Bitte loggen sie sich ein:");
         Console.Write("Nutzername: ");
-        var usrName = Console.ReadLine();
+        var usrName = Console.ReadLine() ?? "";
         Console.Write("Passwort: ");
         var pwd = ReadPwd();
         Console.WriteLine();
         //Check Credentials
-        if (true) return true;
+        var loginResult = await HTTPAdapter.ConfirmLogin(usrName, pwd);
+        if (loginResult)
+        {
+            Console.WriteLine("Use help or h to get a list of commands!");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private static string ReadPwd()
