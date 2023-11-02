@@ -11,13 +11,14 @@ namespace TempAdminControl
 
         private static Dictionary<string, string> CommandList = new Dictionary<string, string>()
         {
-            {"help"  ,"h/help                                                              - Get a list of all Commands" },
-            {"h"     ,"h/help                                                              - Get a list of all Commands" },
-            {"user"  ,"user {ID}                                                           - Show user via ID.Alternatively, by not proving an ID, show List of all Users" },
-            {"create","create [user] {userName} {password} {name} {phoneNr} {isAdmin}      - Create new User" },
-            {"change","change [user|sensor] {ID} {key} {value}                             - Change attribute 'key' of user|sensor via ID to 'value'" },
-            {"modify","modify [user|sensor] {ID} {key} {value}                             - Change attribute 'key' of user|sensor via ID to 'value'" },
-            {"delete","delete [user|sensor|temp] {ID}                                      - Delete user|sensor|temp via ID" },
+            {"help"    ,"help                                                                - Get a list of all Commands" },
+            {"h"       ,"h                                                                   - Get a list of all Commands" },
+            {"log"     ,"log                                                                 - Get a list of changes to MaxTemp" },
+            {"userlist","userlist                                                            - Show List of all Users" },
+            {"create"  ,"create [user] {userName} {password} {name} {phoneNr} {isAdmin}      - Create new User" },
+            {"change"  ,"change [user|sensor] {ID}                                           - Start Modification Dialogue to change all attributes of user|sensor via ID" },
+            {"modify"  ,"modify [user|sensor] {ID}                                           - Start Modification Dialogue to change all attributes of user|sensor via ID" },
+            {"delete"  ,"delete [user|sensor|temp] {ID}                                      - Delete user|sensor|temp via ID" },
         };
         public static void ShowCommandList(string command = "")
         {
@@ -42,9 +43,21 @@ namespace TempAdminControl
             }
         }
 
-        public static void Delete(string deleteObject, string deleteID)
+        public static async Task Delete(string deleteObject, string deleteID)
         {
-            //Delete ID of Object from SQL DB
+            switch (deleteObject.ToLower())
+            {
+                case "sensor":
+                    await HTTPAdapter.DeleteSensor(deleteID);
+                    break;
+                case "user":
+                    break;
+                case "temp":
+                    break;
+                default:
+                    Console.WriteLine($"{deleteObject} ist kein Typ der gelöscht werden kann. Löschbare Typen sind sensor/temp/user");
+                    break;
+            }
         }
 
         public static void ShowLog()
@@ -52,21 +65,23 @@ namespace TempAdminControl
             //Get Log from DB and show it
         }
 
-        public static void Modify(string modObject, string modID, string modAttribute, string modValue)
+        public static async void Modify(string modObject, string modID)
         {
-            //Ändert das gegebene modAttribute einer Tabelle modObject mit der ID modID auf den Wert modValue
+            switch (modObject.ToLower())
+            {
+                case "sensor":
+                    break;
+                case "user":
+                    break;
+                default:
+                    Console.WriteLine($"{modObject} ist kein Typ der geändert werden kann. Änderbare Typen sind sensor|user");
+                    break;
+            }
         }
 
-        public static void ShowUser(string showID = "")
+        public static async void ShowUser()
         {
-            if (String.IsNullOrWhiteSpace(showID))
-            {
-                //ShowList
-            }
-            else
-            {
-                //ShowUser via ID
-            }
+            await HTTPAdapter.ShowUserList();
         }
 
         public static async Task CreateUser(string createUserName, string createPwd,string name, string createTelNr, string isAdmin)

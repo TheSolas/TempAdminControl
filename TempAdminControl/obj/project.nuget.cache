@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "XrvioGPiy5y/L+pQEskgMe1vJEUyOMM6JcAtWpzEq1n0AnusffEp5YrfLy/M5RX6ASQsZbAsZS66oziRZeBVFw==",
+  "dgSpecHash": "+l/W6WLwqt+Bu+UCd0WYW6tU47xfVDtubBVfQ9P3CQsvAB0VWDHhMFZOuShutepOFgyNMSL9lnURTTwtGfEUVA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Niklas\\Documents\\TempDesktopanwendung\\TemperaturAdmin\\TempAdminControl\\TempAdminControl.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Niklas\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512",
+    "C:\\Users\\Niklas\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

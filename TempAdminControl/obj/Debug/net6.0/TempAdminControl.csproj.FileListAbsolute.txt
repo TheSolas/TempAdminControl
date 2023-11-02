@@ -13,3 +13,6 @@ C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\
 C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.pdb
 C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.genruntimeconfig.cache
 C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\ref\TempAdminControl.dll
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\obj\Debug\net6.0\TempAdminControl.csproj.CopyComplete
+C:\Users\Niklas\Documents\TempDesktopanwendung\TemperaturAdmin\TempAdminControl\bin\Debug\net6.0\ConsoleTables.dll
