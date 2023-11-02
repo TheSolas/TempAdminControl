@@ -65,11 +65,12 @@ namespace TempAdminControl
             //Get Log from DB and show it
         }
 
-        public static async void Modify(string modObject, string modID)
+        public static async Task Modify(string modObject, string modID)
         {
             switch (modObject.ToLower())
             {
                 case "sensor":
+                    await HTTPAdapter.ModifySensor(modID);
                     break;
                 case "user":
                     break;
