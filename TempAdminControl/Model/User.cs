@@ -17,7 +17,17 @@ public class User
         IsAdmin = false;
         LastLogIn = null;
     }
-    public User(int? id,string userName, string password, string name, string phone, bool isAdmin, DateTime? lastLogin = null)
+    public User(string userName, string password, string name, string phone, bool isAdmin, DateTime? lastLogin = null)
+    {
+        UserID = 0;
+        UserName = userName;
+        Password = password;
+        Name = name;
+        Phone = phone;
+        IsAdmin = isAdmin;
+        LastLogIn = lastLogin;
+    }
+    public User(int id,string userName, string password, string name, string phone, bool isAdmin, DateTime? lastLogin = null)
     {
         UserID = id;
         UserName = userName;
@@ -28,7 +38,7 @@ public class User
         LastLogIn = lastLogin;
     }
 
-    public int? UserID { get; set; }
+    public int UserID { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }

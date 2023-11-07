@@ -30,7 +30,7 @@ internal class InputResolver
             {
                 case "help":
                 case "h":
-                    ShowCommandList();
+                    Commands.ShowCommandList();
                     break;
                 case "logout":
                     loggedIn = false;
@@ -91,15 +91,6 @@ internal class InputResolver
 
         await Delete(command[1], command[2]);
     }
-
-    //private static void ResolveShowUser(string[] command)
-    //{
-    //    if (command.Length == 1)
-    //    {
-    //        ShowUser();
-    //    }
-    //    else throw new Exception("Ungültige Anzahl an Parametern!");
-    //}
 
     private static async Task ResolveModify(string[] command)
     {

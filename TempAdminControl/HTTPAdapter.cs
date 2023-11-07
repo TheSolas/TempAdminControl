@@ -12,7 +12,7 @@ namespace TempAdminControl;
 
 public class HTTPAdapter
 {
-    const string baseApiAdress = "http://192.168.173.232:5282/api";
+    const string baseApiAdress = "http://192.168.155.232:5282/api";
     public static async Task<HttpResponseMessage> SendPostHTTPRequest<T>(T sendObject, string apiRoute)
     {
         using (HttpClient client = new HttpClient())
@@ -68,7 +68,7 @@ public class HTTPAdapter
     public static async Task RegisterUser(string userName, string password, string name, string phoneNr, bool isAdmin)
     {
 
-        var user = new User(null,userName, password, name, phoneNr, isAdmin);
+        var user = new User(userName, password, name, phoneNr, isAdmin);
         var response = await SendPostHTTPRequest(user, "/User/register_user");
         await ShowResponseContent(response);
     }
@@ -98,7 +98,7 @@ public class HTTPAdapter
     public static async Task DeleteSensor(string id)
     {
         var sensor = new Sensor(int.Parse(id));
-        var response = await SendPostHTTPRequest(sensor, $"/{id}/delete_sensor");
+        var response = await SendPostHTTPRequest(sensor, $"/Sensor/{id}/delete_sensor");
         await ShowResponseContent(response);
     }
 
@@ -115,7 +115,7 @@ public class HTTPAdapter
         var maxTemp = Console.ReadLine() ?? "";
 
         var sensor = new Sensor(int.Parse(id), serverschrank, adresse, hersteller, Double.Parse(maxTemp));
-        var response = await SendPostHTTPRequest(sensor, $"/{id}/modify_sensor");
+        var response = await SendPostHTTPRequest(sensor, $"/Sensor/{id}/modify_sensor");
         await ShowResponseContent(response);
     }
 
@@ -132,36 +132,45 @@ public class HTTPAdapter
         Console.Write("IsAdmin?: ");
         var isAdmin = Console.ReadLine() ?? "";
 
-        var user = new User(int.Parse(id), userName, pwd, name, telNr,Boolean.Parse(isAdmin));
-        var response = await SendPostHTTPRequest(user, $"/{id}/modify_user");
+        var user = new User(int.Parse(id), userName, pwd, name, telNr, Boolean.Parse(isAdmin));
+        var response = await SendPostHTTPRequest(user, $"/User/{id}/modify_user");
         await ShowResponseContent(response);
     }
 
 
     public static async Task ShowUserList()
     {
-        var response = await SendGetHTTPRequest("/User/show_users");
+        var response = await SendGetHTTPRequest("/User/show_all_users");
         var responseBody = await response.Content.ReadAsStringAsync();
-        List<User> userList = JsonConvert.DeserializeObject<List<User>>(responseBody) ?? new List<User>();
-        var table = new ConsoleTable("UserName", "Name", "TelefonNr", "IsAdmin","LastLogin");
-        foreach (User user in userList)
+        if (responseBody.StartsWith("{"))
         {
-            table.AddRow(user.UserName, user.Name, user.Phone, user.IsAdmin, user.LastLogIn);
+
+            List<User> userList = JsonConvert.DeserializeObject<List<User>>(responseBody) ?? new List<User>();
+            var table = new ConsoleTable("UserID", "UserName", "Name", "TelefonNr", "IsAdmin", "LastLogin");
+            foreach (User user in userList)
+            {
+                table.AddRow(user.UserID, user.UserName, user.Name, user.Phone, user.IsAdmin, user.LastLogIn);
+            }
+            table.Write();
+            Console.WriteLine();
         }
-        table.Write();
-        Console.WriteLine();
+        else await ShowResponseContent(response);
     }
 
     public static async Task ShowUser(string id)
     {
-        var response = await SendGetHTTPRequest($"/{id}/show_user");
+        var response = await SendGetHTTPRequest($"/User/{id}/show_user");
         var responseBody = await response.Content.ReadAsStringAsync();
-        var user = JsonConvert.DeserializeObject<User>(responseBody) ?? new User();
-        var table = new ConsoleTable("UserName", "Name", "TelefonNr", "IsAdmin");
-        table.AddRow(user.UserName, user.Name, user.Phone, user.IsAdmin, user.LastLogIn);
-        table.Write();
-        Console.WriteLine();
+        if (responseBody.StartsWith("{"))
+        {
+            var user = JsonConvert.DeserializeObject<User>(responseBody) ?? new User();
+            var table = new ConsoleTable("UserID", "UserName", "Name", "TelefonNr", "IsAdmin", "LastLogin");
+            table.AddRow(user.UserID, user.UserName, user.Name, user.Phone, user.IsAdmin, user.LastLogIn);
+            table.Write();
+            Console.WriteLine();
+        }
+        else await ShowResponseContent(response);
 
     }
-    
+
 }

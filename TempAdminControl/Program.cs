@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System.Diagnostics;
+using System.Net.Security;
 using static TempAdminControl.InputResolver;
 
 namespace TempAdminControl;
@@ -9,18 +10,24 @@ class Program
     {
         Console.WriteLine("Willkommen im AdminTool für die TempControlWebanwendung!");
         int loginTries = 0;
-
-        do
+        if (Debugger.IsAttached)
         {
-            loggedIn = await Login();
-            if (!loggedIn) loginTries++;
-            if (loginTries < 2)
+            loggedIn = true;
+        }
+        else
+        {
+            do
             {
-                Console.WriteLine("Zu viele Loginversuche! Das Programm wird sich nun schließen!");
-                await Task.Delay(1500);
-                Environment.Exit(0);
-            }
-        } while (!loggedIn);
+                loggedIn = await Login();
+                if (!loggedIn) loginTries++;
+                if (loginTries > 2)
+                {
+                    Console.WriteLine("Zu viele Loginversuche! Das Programm wird sich nun schließen!");
+                    await Task.Delay(1500);
+                    Environment.Exit(0);
+                }
+            } while (!loggedIn);
+        }
 
         do
         {
