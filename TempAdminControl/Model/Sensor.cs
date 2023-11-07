@@ -8,6 +8,14 @@ namespace TempAdminControl.Model;
 
 public class Sensor
 {
+    public Sensor()
+    {
+        SensorID = null;
+        Serverschrank = null;
+        Adresse = null;
+        Hersteller = null;
+        Max_Temperature = null;
+    }
     public Sensor(int id)
     {
         SensorID = id;

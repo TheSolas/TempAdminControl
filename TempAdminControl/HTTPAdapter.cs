@@ -142,7 +142,7 @@ public class HTTPAdapter
     {
         var response = await SendGetHTTPRequest("/User/show_all_users");
         var responseBody = await response.Content.ReadAsStringAsync();
-        if (responseBody.StartsWith("{"))
+        if (responseBody.StartsWith("["))
         {
 
             List<User> userList = JsonConvert.DeserializeObject<List<User>>(responseBody) ?? new List<User>();
@@ -173,4 +173,38 @@ public class HTTPAdapter
 
     }
 
+    public static async Task ShowSensorList()
+    {
+        var response = await SendGetHTTPRequest("/Sensor/show_all_sensors");
+        var responseBody = await response.Content.ReadAsStringAsync();
+        if (responseBody.StartsWith("["))
+        {
+
+            List<Sensor> sensorList = JsonConvert.DeserializeObject<List<Sensor>>(responseBody) ?? new List<Sensor>();
+            var table = new ConsoleTable("SensorID", "Serverschrank", "Adresse", "Hersteller", "MaxTemp");
+            foreach (Sensor sensor in sensorList)
+            {
+                table.AddRow(sensor.SensorID, sensor.Serverschrank, sensor.Adresse, sensor.Hersteller, sensor.Max_Temperature);
+            }
+            table.Write();
+            Console.WriteLine();
+        }
+        else await ShowResponseContent(response);
+    }
+
+    public static async Task ShowSensor(string id)
+    {
+        var response = await SendGetHTTPRequest($"/Sensor/{id}/show_sensor");
+        var responseBody = await response.Content.ReadAsStringAsync();
+        if (responseBody.StartsWith("{"))
+        {
+            var sensor = JsonConvert.DeserializeObject<Sensor>(responseBody) ?? new Sensor();
+            var table = new ConsoleTable("SensorID", "Serverschrank", "Adresse", "Hersteller", "MaxTemp");
+            table.AddRow(sensor.SensorID,sensor.Serverschrank,sensor.Adresse,sensor.Hersteller,sensor.Max_Temperature);
+            table.Write();
+            Console.WriteLine();
+        }
+        else await ShowResponseContent(response);
+
+    }
 }

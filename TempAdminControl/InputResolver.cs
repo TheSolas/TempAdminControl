@@ -30,7 +30,20 @@ internal class InputResolver
             {
                 case "help":
                 case "h":
-                    Commands.ShowCommandList();
+                    switch (command.Length)
+                    {
+                        case 1:
+                            Commands.ShowCommandList();
+                            break;
+                        case 2:
+                            Commands.ShowCommandList(command[1]);
+                            break;
+                        case 3:
+                            Commands.ShowCommandList($"{command[1]} {command[2]}");
+                            break;
+                        default:
+                            throw new Exception("Derzeit gibt es keine Befehle mit dieser Länge");
+                    }
                     break;
                 case "logout":
                     loggedIn = false;
@@ -49,7 +62,13 @@ internal class InputResolver
                     await Commands.ShowUserList();
                     break;
                 case "user":
-                    await Commands.ShowUser(command);
+                    await Commands.ShowUser(command[1]);
+                    break;
+                case "sensorlist":
+                    await Commands.ShowSensorList();
+                    break;
+                case "sensor":
+                    await Commands.ShowSensor(command[1]);
                     break;
                 case "create":
                     await ResolveCreate(command);

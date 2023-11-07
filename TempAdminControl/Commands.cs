@@ -17,6 +17,8 @@ internal class Commands
         {"log"            ,"log                                                                 - Get a list of changes to MaxTemp" },
         {"user"           ,"user {id}                                                           - Show a single user" },
         {"userlist"       ,"userlist                                                            - Show List of all Users" },
+        {"sensor"         ,"sensor {id}                                                         - Show a single sensor" },
+        {"sensorlist"     ,"sensorlist                                                          - Show List of all Sensors" },
         {"create user"    ,"create user {userName} {password} {name} {phoneNr} {isAdmin}        - Create new User" },
         {"create sensor"  ,"create sensor {serverSchrank} {adresse} {hersteller} {maxTemp}      - Create new User" },
         {"change"         ,"change [user|sensor] {ID}                                           - Start Modification Dialogue to change all attributes of user|sensor via ID" },
@@ -34,10 +36,6 @@ internal class Commands
             }
             table.Write();
             Console.WriteLine();
-            //foreach (var cmd in CommandList)
-            //{
-            //    Console.WriteLine(cmd.Value);
-            //}
         }
         else
         {
@@ -91,13 +89,22 @@ internal class Commands
         }
     }
 
-    public static async Task ShowUser(string[] command)
+    public static async Task ShowUser(string userID)
     {
-                await HTTPAdapter.ShowUser(command[1]);
+                await HTTPAdapter.ShowUser(userID);
     }
     public static async Task ShowUserList()
     {
         await HTTPAdapter.ShowUserList();
+    }
+
+    public static async Task ShowSensor(string sensorID)
+    {
+        await HTTPAdapter.ShowSensor(sensorID);
+    }
+    public static async Task ShowSensorList()
+    {
+        await HTTPAdapter.ShowSensorList();
     }
 
     public static async Task CreateUser(string createUserName, string createPwd, string name, string createTelNr, string isAdmin)
