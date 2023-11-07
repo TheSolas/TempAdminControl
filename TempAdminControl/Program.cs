@@ -8,19 +8,32 @@ class Program
     static async Task Main(string[] args)
     {
         Console.WriteLine("Willkommen im AdminTool für die TempControlWebanwendung!");
+        int loginTries = 0;
+
         do
         {
             loggedIn = await Login();
+            if (!loggedIn) loginTries++;
+            if (loginTries < 2)
+            {
+                Console.WriteLine("Zu viele Loginversuche! Das Programm wird sich nun schließen!");
+                await Task.Delay(1500);
+                Environment.Exit(0);
+            }
         } while (!loggedIn);
 
         do
         {
-            loggedIn = await ResolveUserInput();
+            try
+            {
+                loggedIn = await ResolveUserInput();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         } while (loggedIn);
 
-        Console.WriteLine("Hello, World!");
-        Console.WriteLine("Hello, World!");
-        Console.WriteLine("Hello, World!");
     }
 
 

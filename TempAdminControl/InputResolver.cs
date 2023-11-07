@@ -10,7 +10,7 @@ namespace TempAdminControl;
 internal class InputResolver
 {
     private const string USEHELP = "Use help or h to get a list of commands!";
-    
+
 
     public static async Task<bool> ResolveUserInput()
     {
@@ -39,18 +39,20 @@ internal class InputResolver
                     await ResolveDelete(command);
                     break;
                 case "change":
-                    break;
                 case "modify":
-                    ResolveModify(command);
+                    await ResolveModify(command);
                     break;
                 case "log":
                     Commands.ShowLog();
                     break;
                 case "userlist":
-                    Commands.ShowUser();
+                    await Commands.ShowUserList();
+                    break;
+                case "user":
+                    await Commands.ShowUser(command);
                     break;
                 case "create":
-                    await ResolveCreateUser(command);
+                    await ResolveCreate(command);
                     break;
                 default:
                     Console.WriteLine(USEHELP);
@@ -66,10 +68,21 @@ internal class InputResolver
         }
     }
 
-    private static async Task ResolveCreateUser(string[] command)
+    private static async Task ResolveCreate(string[] command)
     {
-        if (command.Length != 7) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
-        await CreateUser(command[2], command[3], command[4], command[5], command[6]);
+        switch (command[1])
+        {
+            case "user":
+                if (command.Length != 7) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
+                await CreateUser(command[2], command[3], command[4], command[5], command[6]);
+                break;
+            case "sensor":
+                if (command.Length != 6) throw new Exception("Ungültige Anzahl an Parametern! Nutze 'help create' für den korrekten Aufbau des Befehls");
+                await CreateSensor(command[2], command[3], command[4], command[5]);
+                break;
+            default:
+                throw new Exception("Ungültiger Create Befehl! Nutze 'help create' für den korrekten Aufbau des Befehls");
+        }
     }
 
     private static async Task ResolveDelete(string[] command)
@@ -88,9 +101,9 @@ internal class InputResolver
     //    else throw new Exception("Ungültige Anzahl an Parametern!");
     //}
 
-    private static void ResolveModify(string[] command)
+    private static async Task ResolveModify(string[] command)
     {
         if (command.Length != 3) throw new Exception("Befehl entspricht nicht der Vorgabe! " + USEHELP);
-        Modify(command[1], command[2]);
+        await Modify(command[1], command[2]);
     }
 }

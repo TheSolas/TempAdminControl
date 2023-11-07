@@ -14,8 +14,10 @@ namespace TempAdminControl
             {"help"    ,"help                                                                - Get a list of all Commands" },
             {"h"       ,"h                                                                   - Get a list of all Commands" },
             {"log"     ,"log                                                                 - Get a list of changes to MaxTemp" },
+            {"user"    ,"user {id}                                                           - Show a single user" },
             {"userlist","userlist                                                            - Show List of all Users" },
-            {"create"  ,"create [user] {userName} {password} {name} {phoneNr} {isAdmin}      - Create new User" },
+            {"create"  ,"create user {userName} {password} {name} {phoneNr} {isAdmin}        - Create new User" },
+            {"create"  ,"create sensor {serverSchrank} {adresse} {hersteller} {maxTemp}      - Create new User" },
             {"change"  ,"change [user|sensor] {ID}                                           - Start Modification Dialogue to change all attributes of user|sensor via ID" },
             {"modify"  ,"modify [user|sensor] {ID}                                           - Start Modification Dialogue to change all attributes of user|sensor via ID" },
             {"delete"  ,"delete [user|sensor|temp] {ID}                                      - Delete user|sensor|temp via ID" },
@@ -73,6 +75,7 @@ namespace TempAdminControl
                     await HTTPAdapter.ModifySensor(modID);
                     break;
                 case "user":
+                    await HTTPAdapter.ModifyUser(modID);
                     break;
                 default:
                     Console.WriteLine($"{modObject} ist kein Typ der geändert werden kann. Änderbare Typen sind sensor|user");
@@ -80,15 +83,24 @@ namespace TempAdminControl
             }
         }
 
-        public static async void ShowUser()
+        public static async Task ShowUser(string[] command)
+        {
+                    await HTTPAdapter.ShowUser(command[1]);
+        }
+        public static async Task ShowUserList()
         {
             await HTTPAdapter.ShowUserList();
         }
 
-        public static async Task CreateUser(string createUserName, string createPwd,string name, string createTelNr, string isAdmin)
+        public static async Task CreateUser(string createUserName, string createPwd, string name, string createTelNr, string isAdmin)
         {
-            await HTTPAdapter.RegisterUser(createUserName,createPwd,name,createTelNr,Boolean.Parse(isAdmin));
+            await HTTPAdapter.RegisterUser(createUserName, createPwd, name, createTelNr, Boolean.Parse(isAdmin));
             //Console.WriteLine($"Der neue Nutzer {createUserName} wurde erfolgreich erstellt");
+        }
+
+        public static async Task CreateSensor(string serverSchrank, string adresse, string hersteller, string maxTemp)
+        {
+            await HTTPAdapter.RegisterSensor(serverSchrank, adresse, hersteller, maxTemp);
         }
     }
 }

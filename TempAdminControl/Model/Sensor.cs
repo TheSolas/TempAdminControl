@@ -16,7 +16,7 @@ public class Sensor
         Hersteller = null;
         Max_Temperature = null;
     }
-    public Sensor(int id,string serverschrank, string adresse, string hersteller, double max_Temperature)
+    public Sensor(int? id,string serverschrank, string adresse, string hersteller, double max_Temperature)
     {
         SensorID = id;
         Serverschrank = serverschrank;
@@ -24,7 +24,7 @@ public class Sensor
         Hersteller = hersteller;
         Max_Temperature = max_Temperature;
     }
-    public int SensorID { get; set; }
+    public int? SensorID { get; set; }
     public string? Serverschrank { get; set; }
     public string? Adresse { get; set; }
     public string? Hersteller { get; set; }
