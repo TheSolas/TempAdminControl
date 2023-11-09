@@ -9,6 +9,24 @@ class Program
     static async Task Main(string[] args)
     {
         Console.WriteLine("Willkommen im AdminTool für die TempControlWebanwendung!");
+        await SuccessfulLogin();
+
+        do
+        {
+            try
+            {
+                loggedIn = await ResolveUserInput();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        } while (loggedIn);
+
+    }
+
+    private static async Task SuccessfulLogin()
+    {
         int loginTries = 0;
         if (Debugger.IsAttached)
         {
@@ -28,26 +46,7 @@ class Program
                 }
             } while (!loggedIn);
         }
-
-        do
-        {
-            try
-            {
-                loggedIn = await ResolveUserInput();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        } while (loggedIn);
-
     }
-
-
-
-
-
-
 
     private static async Task<bool> Login()
     {
